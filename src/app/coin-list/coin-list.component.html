@@ -12,7 +12,26 @@
         loop="infinite"
         direction="left"
       >
-        <div class="row"></div>
+        <div class="row">
+          <ng-container *ngFor="let row of bannerData">
+            <div class="col-1">
+              <div class="card">
+                <img [src]="row.image" alt="" width="100" class="img-fluid" />
+                <div class="card-body">
+                  <h5 class="card-title">
+                    {{ row.symbol | uppercase
+                    }}<span class="text-danger"
+                      >{{ row.market_cap_change_percentage_24h }}%</span
+                    >
+                    <p class="card-text">
+                      {{ row.current_price | currency: "LKR " }}
+                    </p>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
       </marquee>
     </div>
   </div>
