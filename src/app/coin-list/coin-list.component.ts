@@ -3,6 +3,7 @@ import { ApiService } from '../service/api.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-coin-list',
@@ -22,7 +23,7 @@ export class CoinListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.getBannerData();
@@ -31,7 +32,7 @@ export class CoinListComponent implements OnInit {
 
   //get Trending Currency
   getBannerData() {
-    return this.api.getTrendingCurrency('lkr').subscribe((res) => {
+    return this.api.getTrendingCurrency('LKR').subscribe((res) => {
       console.log(res);
       this.bannerData = res;
     });
@@ -39,7 +40,7 @@ export class CoinListComponent implements OnInit {
 
   //get all currency
   getAllData() {
-    return this.api.getCurrency('lkr').subscribe((res) => {
+    return this.api.getCurrency('LKR').subscribe((res) => {
       console.log(res);
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
@@ -54,5 +55,10 @@ export class CoinListComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  //get currency detail
+  getDetails(row: any) {
+    this.router.navigate(['/coin-detail', row.id]);
   }
 }
