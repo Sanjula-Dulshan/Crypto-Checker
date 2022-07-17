@@ -6,6 +6,7 @@
   justify-content: center;
   h2 {
     font-weight: bold;
+    margin-top: 10px;
     margin-bottom: 15px;
     font-size: 3.75rem;
     line-height: 1.2;
@@ -59,6 +60,10 @@ table {
 td,
 th {
   width: 25%;
+  cursor: pointer;
+}
+tr:hover {
+  background-color: rgba(36, 37, 37, 0.3);
 }
 
 :host ::ng-deep .mat-sort-header-content {

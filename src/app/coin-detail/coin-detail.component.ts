@@ -77,7 +77,7 @@ export class CoinDetailComponent implements OnInit {
   getGraphData(days: number) {
     this.days = days;
     this.api
-      .getGraphicalData(this.coinID, this.currency, 1)
+      .getGraphicalData(this.coinID, this.currency, this.days)
       .subscribe((res) => {
         setTimeout(() => {
           this.myLineChart.chart?.update();
