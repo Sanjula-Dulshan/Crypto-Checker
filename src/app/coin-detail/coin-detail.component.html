@@ -3,7 +3,7 @@
     <div class="col-md-3 details">
       <div class="img">
         <img src="{{ coinData?.image?.large }}" alt="" />
-        <h3 class="text-center" style="font-size: 23px">
+        <h3 class="text-center mt-4" style="font-size: 23px">
           {{ coinData?.name }}
         </h3>
         <h2 [innerHtml]="coinData?.description?.en.split('. ')[0]"></h2>
@@ -14,13 +14,13 @@
 
           <span class="title">Current Price: </span>
           <span class="value">{{
-            coinData?.market_data.current_price.lkr | currency
+            coinData?.market_data.current_price.lkr | currency: currency + " "
           }}</span
           ><br />
 
           <span class="title">Market Cap: </span>
           <span class="value">{{
-            coinData?.market_data?.market_cap.lkr | currency
+            coinData?.market_data?.market_cap.lkr | currency: currency + " "
           }}</span>
         </div>
       </div>

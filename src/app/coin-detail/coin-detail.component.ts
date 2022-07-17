@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { CurrencyService } from '../service/currency.service';
 
 @Component({
   selector: 'app-coin-detail',
@@ -23,7 +24,7 @@ export class CoinDetailComponent implements OnInit {
         borderColor: '#009688',
         pointBackgroundColor: '#009688',
         pointBorderColor: '#009688',
-        pointHoverBackgroundColor: '#009688',
+        pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: '#009688',
       },
     ],
@@ -42,7 +43,8 @@ export class CoinDetailComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private currencyService: CurrencyService
   ) {}
 
   ngOnInit(): void {
@@ -51,32 +53,46 @@ export class CoinDetailComponent implements OnInit {
     });
     this.getCoinData();
     this.getGraphData();
+    this.currencyService.getCurrency().subscribe((res) => {
+      this.currency = res;
+      this.getGraphData();
+      this.getCoinData();
+    });
   }
 
   getCoinData() {
     this.api.getCurrencyById(this.coinID).subscribe((res) => {
-      console.log(res);
+      console.log('65 ', this.coinData);
+      if (this.currency === 'USD') {
+        res.market_data.current_price.lkr = res.market_data.current_price.usd;
+        res.market_data.market_cap.lkr = res.market_data.market_cap.usd;
+      }
+      res.market_data.current_price.lkr = res.market_data.current_price.lkr;
+      res.market_data.market_cap.lkr = res.market_data.market_cap.lkr;
       this.coinData = res;
+      console.log(this.coinData);
     });
   }
 
   getGraphData() {
-    this.api.getGraphicalData(this.coinID, 'LKR', 1).subscribe((res) => {
-      setTimeout(() => {
-        this.myLineChart.chart?.update();
-      }, 200);
-      this.lineChartData.datasets[0].data = res.prices.map((a: any) => {
-        return a[1];
-      });
-      this.lineChartData.labels = res.prices.map((a: any) => {
-        let date = new Date(a[0]);
-        let time =
-          date.getHours() > 12
-            ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-            : `${date.getHours()}:${date.getMinutes()} AM`;
+    this.api
+      .getGraphicalData(this.coinID, this.currency, 1)
+      .subscribe((res) => {
+        setTimeout(() => {
+          this.myLineChart.chart?.update();
+        }, 200);
+        this.lineChartData.datasets[0].data = res.prices.map((a: any) => {
+          return a[1];
+        });
+        this.lineChartData.labels = res.prices.map((a: any) => {
+          let date = new Date(a[0]);
+          let time =
+            date.getHours() > 12
+              ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+              : `${date.getHours()}:${date.getMinutes()} AM`;
 
-        return this.days === 1 ? time : date.toLocaleDateString();
+          return this.days === 1 ? time : date.toLocaleDateString();
+        });
       });
-    });
   }
 }
