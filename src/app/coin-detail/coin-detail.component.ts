@@ -66,11 +66,17 @@ export class CoinDetailComponent implements OnInit {
       if (this.currency === 'USD') {
         res.market_data.current_price.lkr = res.market_data.current_price.usd;
         res.market_data.market_cap.lkr = res.market_data.market_cap.usd;
+        res.market_data.total_volume.lkr = res.market_data.total_volume.usd;
+        res.market_data.high_24h.lkr = res.market_data.high_24h.usd;
+        res.market_data.low_24h.lkr = res.market_data.low_24h.usd;
       }
       res.market_data.current_price.lkr = res.market_data.current_price.lkr;
       res.market_data.market_cap.lkr = res.market_data.market_cap.lkr;
+      res.market_data.total_volume.lkr = res.market_data.total_volume.lkr;
+      res.market_data.high_24h.lkr = res.market_data.high_24h.lkr;
+      res.market_data.low_24h.lkr = res.market_data.low_24h.lkr;
       this.coinData = res;
-      console.log(this.coinData);
+      console.log(this.coinData.market_data);
     });
   }
 
