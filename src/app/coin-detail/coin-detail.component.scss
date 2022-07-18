@@ -9,6 +9,11 @@
   align-items: center;
   border-right: 2px solid grey;
   flex-direction: column;
+  h2 {
+    line-height: 25px;
+    text-align: justify;
+    padding: 0 10px;
+  }
   h3 {
     font-weight: bold;
     margin-bottom: 20px;
@@ -70,10 +75,10 @@
 }
 
 .btn-custom:focus {
-  background: #009688;
+  background: #3803ff;
   font-weight: 700;
   font-size: 18px;
-  border: 1px solid #009688;
+  border: 1px solid #3803ff;
 }
 
 * {
