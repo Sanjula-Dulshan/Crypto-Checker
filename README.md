@@ -7,7 +7,7 @@
 
 - All about my project [Click Here](https://www.linkedin.com/posts/sanjula-dulshan-154329203_html-css-angular-activity-6954851719038083072-gThQ?utm_source=linkedin_share&utm_medium=member_desktop_web)
 
-- My project live preview [Click Here](https://crypto-checker-navy.vercel.app/coin-list)
+- My project live preview [Click Here](https://crypto-checker-o9r2h10qt-sanjula-dulshans-projects.vercel.app/coin-list)
 
 - How to reach me **sdulshan10@gmail.com**
 
